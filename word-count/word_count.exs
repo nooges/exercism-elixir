@@ -6,11 +6,11 @@ defmodule Words do
   """
   @spec count(String.t) :: map
   def count(sentence) do
-    words = sentence
-      |> remove_punctuation
-      |> String.downcase
-      |> String.split
-      |> count_words
+    sentence
+    |> remove_punctuation
+    |> String.downcase
+    |> String.split
+    |> count_words
   end
 
   defp remove_punctuation(sentence) do
