@@ -17,12 +17,12 @@ defmodule ListOpsTest do
     assert L.count([]) == 0
   end
 
-  @tag :pending
+  #@tag :pending
   test "count of normal list" do
     assert L.count([1,3,5,7]) == 4
   end
 
-  @tag :pending
+  #@tag :pending
   test "count of huge list" do
     assert L.count(Enum.to_list(1..1_000_000)) == 1_000_000
   end
