@@ -18,15 +18,19 @@ defmodule RunLengthEncoder do
 
   @spec decode(String.t) :: String.t
   def decode(string) do
-    string
-    |> String.replace(~r/(\d+\w)/, "\\1 ")
-    |> String.split
-    |> Enum.map_join(&(expand_token(&1)))
+    _decode(String.codepoints(string), "")
   end
 
-  def expand_token(token) do
-    {count_str, char} = String.split_at(token, -1)
-    count = String.to_integer(count_str)
-    String.duplicate(char, count)
+  defp is_alpha(string), do: String.match?(string, ~r/[A-Z]/)
+
+  defp _decode([], decoded_string), do: decoded_string
+  defp _decode([n, c | rest], decoded_string) do
+    cond do
+      is_alpha(c) ->
+        repeat = String.to_integer(n)
+        _decode(rest, decoded_string <> String.duplicate(c, repeat))
+      true ->
+        _decode([n <> c] ++ rest, decoded_string)
+    end
   end
 end
