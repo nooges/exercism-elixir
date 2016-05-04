@@ -40,7 +40,7 @@ defmodule ListOps do
   defp _append([head | tail], b), do: _append(tail, [head | b])
 
   @spec concat([[any]]) :: [any]
-  def concat(ll) do
-
-  end
+  def concat(ll), do: _concat(reverse(ll), [])
+  defp _concat([], acc), do: acc
+  defp _concat([head | tail], acc), do: _concat(tail, append(head, acc))
 end
